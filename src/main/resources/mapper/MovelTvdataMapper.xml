@@ -1,0 +1,675 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.reptile.ad.mapper.MovelTvdataMapper">
+  <resultMap id="BaseResultMap" type="com.reptile.ad.vo.MovelTvdata">
+    <id column="uuid" jdbcType="CHAR" property="uuid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="alias" jdbcType="VARCHAR" property="alias" />
+    <result column="mainstar" jdbcType="VARCHAR" property="mainstar" />
+    <result column="director" jdbcType="VARCHAR" property="director" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="area" jdbcType="VARCHAR" property="area" />
+    <result column="year" jdbcType="VARCHAR" property="year" />
+    <result column="site" jdbcType="VARCHAR" property="site" />
+    <result column="image" jdbcType="VARCHAR" property="image" />
+    <result column="param" jdbcType="INTEGER" property="param" />
+    <result column="sitename" jdbcType="VARCHAR" property="sitename" />
+    <result column="tvtype" jdbcType="VARCHAR" property="tvtype" />
+    <result column="siteurl" jdbcType="VARCHAR" property="siteurl" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="movel_status" jdbcType="VARCHAR" property="movel_status" />
+    <result column="seach_name" jdbcType="VARCHAR" property="seach_name" />
+    <result column="seach_rname" jdbcType="VARCHAR" property="seach_rname" />
+    <result column="seach_aname" jdbcType="VARCHAR" property="seach_aname" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.reptile.ad.vo.MovelTvdata">
+    <result column="introduction" jdbcType="LONGVARCHAR" property="introduction" />
+    <result column="plot" jdbcType="LONGVARCHAR" property="plot" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    uuid, `name`, `alias`, mainstar, director, `type`, area, `year`, site, image, param, 
+    sitename, tvtype, siteurl, createtime, updatetime, id, movel_status, seach_name, 
+    seach_rname, seach_aname
+  </sql>
+  <sql id="Blob_Column_List">
+    introduction, plot
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.reptile.ad.vo.MovelTvdataExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from movel_tvdata
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.reptile.ad.vo.MovelTvdataExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from movel_tvdata
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from movel_tvdata
+    where uuid = #{uuid,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from movel_tvdata
+    where uuid = #{uuid,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.reptile.ad.vo.MovelTvdataExample">
+    delete from movel_tvdata
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.reptile.ad.vo.MovelTvdata" useGeneratedKeys="true">
+    insert into movel_tvdata (uuid, `name`, `alias`, 
+      mainstar, director, `type`, 
+      area, `year`, site, image, 
+      param, sitename, tvtype, 
+      siteurl, createtime, updatetime, 
+      movel_status, seach_name, seach_rname, 
+      seach_aname, introduction, plot
+      )
+    values (#{uuid,jdbcType=CHAR}, #{name,jdbcType=VARCHAR}, #{alias,jdbcType=VARCHAR}, 
+      #{mainstar,jdbcType=VARCHAR}, #{director,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{area,jdbcType=VARCHAR}, #{year,jdbcType=VARCHAR}, #{site,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}, 
+      #{param,jdbcType=INTEGER}, #{sitename,jdbcType=VARCHAR}, #{tvtype,jdbcType=VARCHAR}, 
+      #{siteurl,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, 
+      #{movel_status,jdbcType=VARCHAR}, #{seach_name,jdbcType=VARCHAR}, #{seach_rname,jdbcType=VARCHAR}, 
+      #{seach_aname,jdbcType=VARCHAR}, #{introduction,jdbcType=LONGVARCHAR}, #{plot,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.reptile.ad.vo.MovelTvdata" useGeneratedKeys="true">
+    insert into movel_tvdata
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="alias != null">
+        `alias`,
+      </if>
+      <if test="mainstar != null">
+        mainstar,
+      </if>
+      <if test="director != null">
+        director,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="area != null">
+        area,
+      </if>
+      <if test="year != null">
+        `year`,
+      </if>
+      <if test="site != null">
+        site,
+      </if>
+      <if test="image != null">
+        image,
+      </if>
+      <if test="param != null">
+        param,
+      </if>
+      <if test="sitename != null">
+        sitename,
+      </if>
+      <if test="tvtype != null">
+        tvtype,
+      </if>
+      <if test="siteurl != null">
+        siteurl,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+      <if test="updatetime != null">
+        updatetime,
+      </if>
+      <if test="movel_status != null">
+        movel_status,
+      </if>
+      <if test="seach_name != null">
+        seach_name,
+      </if>
+      <if test="seach_rname != null">
+        seach_rname,
+      </if>
+      <if test="seach_aname != null">
+        seach_aname,
+      </if>
+      <if test="introduction != null">
+        introduction,
+      </if>
+      <if test="plot != null">
+        plot,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=CHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="alias != null">
+        #{alias,jdbcType=VARCHAR},
+      </if>
+      <if test="mainstar != null">
+        #{mainstar,jdbcType=VARCHAR},
+      </if>
+      <if test="director != null">
+        #{director,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null">
+        #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="site != null">
+        #{site,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null">
+        #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="param != null">
+        #{param,jdbcType=INTEGER},
+      </if>
+      <if test="sitename != null">
+        #{sitename,jdbcType=VARCHAR},
+      </if>
+      <if test="tvtype != null">
+        #{tvtype,jdbcType=VARCHAR},
+      </if>
+      <if test="siteurl != null">
+        #{siteurl,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="movel_status != null">
+        #{movel_status,jdbcType=VARCHAR},
+      </if>
+      <if test="seach_name != null">
+        #{seach_name,jdbcType=VARCHAR},
+      </if>
+      <if test="seach_rname != null">
+        #{seach_rname,jdbcType=VARCHAR},
+      </if>
+      <if test="seach_aname != null">
+        #{seach_aname,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null">
+        #{introduction,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="plot != null">
+        #{plot,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.reptile.ad.vo.MovelTvdataExample" resultType="java.lang.Long">
+    select count(*) from movel_tvdata
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update movel_tvdata
+    <set>
+      <if test="record.uuid != null">
+        uuid = #{record.uuid,jdbcType=CHAR},
+      </if>
+      <if test="record.name != null">
+        `name` = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.alias != null">
+        `alias` = #{record.alias,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mainstar != null">
+        mainstar = #{record.mainstar,jdbcType=VARCHAR},
+      </if>
+      <if test="record.director != null">
+        director = #{record.director,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        `type` = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.area != null">
+        area = #{record.area,jdbcType=VARCHAR},
+      </if>
+      <if test="record.year != null">
+        `year` = #{record.year,jdbcType=VARCHAR},
+      </if>
+      <if test="record.site != null">
+        site = #{record.site,jdbcType=VARCHAR},
+      </if>
+      <if test="record.image != null">
+        image = #{record.image,jdbcType=VARCHAR},
+      </if>
+      <if test="record.param != null">
+        param = #{record.param,jdbcType=INTEGER},
+      </if>
+      <if test="record.sitename != null">
+        sitename = #{record.sitename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tvtype != null">
+        tvtype = #{record.tvtype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.siteurl != null">
+        siteurl = #{record.siteurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null">
+        createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatetime != null">
+        updatetime = #{record.updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.movel_status != null">
+        movel_status = #{record.movel_status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.seach_name != null">
+        seach_name = #{record.seach_name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.seach_rname != null">
+        seach_rname = #{record.seach_rname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.seach_aname != null">
+        seach_aname = #{record.seach_aname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.introduction != null">
+        introduction = #{record.introduction,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.plot != null">
+        plot = #{record.plot,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update movel_tvdata
+    set uuid = #{record.uuid,jdbcType=CHAR},
+      `name` = #{record.name,jdbcType=VARCHAR},
+      `alias` = #{record.alias,jdbcType=VARCHAR},
+      mainstar = #{record.mainstar,jdbcType=VARCHAR},
+      director = #{record.director,jdbcType=VARCHAR},
+      `type` = #{record.type,jdbcType=VARCHAR},
+      area = #{record.area,jdbcType=VARCHAR},
+      `year` = #{record.year,jdbcType=VARCHAR},
+      site = #{record.site,jdbcType=VARCHAR},
+      image = #{record.image,jdbcType=VARCHAR},
+      param = #{record.param,jdbcType=INTEGER},
+      sitename = #{record.sitename,jdbcType=VARCHAR},
+      tvtype = #{record.tvtype,jdbcType=VARCHAR},
+      siteurl = #{record.siteurl,jdbcType=VARCHAR},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      updatetime = #{record.updatetime,jdbcType=TIMESTAMP},
+      id = #{record.id,jdbcType=BIGINT},
+      movel_status = #{record.movel_status,jdbcType=VARCHAR},
+      seach_name = #{record.seach_name,jdbcType=VARCHAR},
+      seach_rname = #{record.seach_rname,jdbcType=VARCHAR},
+      seach_aname = #{record.seach_aname,jdbcType=VARCHAR},
+      introduction = #{record.introduction,jdbcType=LONGVARCHAR},
+      plot = #{record.plot,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update movel_tvdata
+    set uuid = #{record.uuid,jdbcType=CHAR},
+      `name` = #{record.name,jdbcType=VARCHAR},
+      `alias` = #{record.alias,jdbcType=VARCHAR},
+      mainstar = #{record.mainstar,jdbcType=VARCHAR},
+      director = #{record.director,jdbcType=VARCHAR},
+      `type` = #{record.type,jdbcType=VARCHAR},
+      area = #{record.area,jdbcType=VARCHAR},
+      `year` = #{record.year,jdbcType=VARCHAR},
+      site = #{record.site,jdbcType=VARCHAR},
+      image = #{record.image,jdbcType=VARCHAR},
+      param = #{record.param,jdbcType=INTEGER},
+      sitename = #{record.sitename,jdbcType=VARCHAR},
+      tvtype = #{record.tvtype,jdbcType=VARCHAR},
+      siteurl = #{record.siteurl,jdbcType=VARCHAR},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      updatetime = #{record.updatetime,jdbcType=TIMESTAMP},
+      id = #{record.id,jdbcType=BIGINT},
+      movel_status = #{record.movel_status,jdbcType=VARCHAR},
+      seach_name = #{record.seach_name,jdbcType=VARCHAR},
+      seach_rname = #{record.seach_rname,jdbcType=VARCHAR},
+      seach_aname = #{record.seach_aname,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.reptile.ad.vo.MovelTvdata">
+    update movel_tvdata
+    <set>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="alias != null">
+        `alias` = #{alias,jdbcType=VARCHAR},
+      </if>
+      <if test="mainstar != null">
+        mainstar = #{mainstar,jdbcType=VARCHAR},
+      </if>
+      <if test="director != null">
+        director = #{director,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null">
+        `year` = #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="site != null">
+        site = #{site,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null">
+        image = #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="param != null">
+        param = #{param,jdbcType=INTEGER},
+      </if>
+      <if test="sitename != null">
+        sitename = #{sitename,jdbcType=VARCHAR},
+      </if>
+      <if test="tvtype != null">
+        tvtype = #{tvtype,jdbcType=VARCHAR},
+      </if>
+      <if test="siteurl != null">
+        siteurl = #{siteurl,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="id != null">
+        id = #{id,jdbcType=BIGINT},
+      </if>
+      <if test="movel_status != null">
+        movel_status = #{movel_status,jdbcType=VARCHAR},
+      </if>
+      <if test="seach_name != null">
+        seach_name = #{seach_name,jdbcType=VARCHAR},
+      </if>
+      <if test="seach_rname != null">
+        seach_rname = #{seach_rname,jdbcType=VARCHAR},
+      </if>
+      <if test="seach_aname != null">
+        seach_aname = #{seach_aname,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null">
+        introduction = #{introduction,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="plot != null">
+        plot = #{plot,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where uuid = #{uuid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.reptile.ad.vo.MovelTvdata">
+    update movel_tvdata
+    set `name` = #{name,jdbcType=VARCHAR},
+      `alias` = #{alias,jdbcType=VARCHAR},
+      mainstar = #{mainstar,jdbcType=VARCHAR},
+      director = #{director,jdbcType=VARCHAR},
+      `type` = #{type,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      `year` = #{year,jdbcType=VARCHAR},
+      site = #{site,jdbcType=VARCHAR},
+      image = #{image,jdbcType=VARCHAR},
+      param = #{param,jdbcType=INTEGER},
+      sitename = #{sitename,jdbcType=VARCHAR},
+      tvtype = #{tvtype,jdbcType=VARCHAR},
+      siteurl = #{siteurl,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      id = #{id,jdbcType=BIGINT},
+      movel_status = #{movel_status,jdbcType=VARCHAR},
+      seach_name = #{seach_name,jdbcType=VARCHAR},
+      seach_rname = #{seach_rname,jdbcType=VARCHAR},
+      seach_aname = #{seach_aname,jdbcType=VARCHAR},
+      introduction = #{introduction,jdbcType=LONGVARCHAR},
+      plot = #{plot,jdbcType=LONGVARCHAR}
+    where uuid = #{uuid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.reptile.ad.vo.MovelTvdata">
+    update movel_tvdata
+    set `name` = #{name,jdbcType=VARCHAR},
+      `alias` = #{alias,jdbcType=VARCHAR},
+      mainstar = #{mainstar,jdbcType=VARCHAR},
+      director = #{director,jdbcType=VARCHAR},
+      `type` = #{type,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      `year` = #{year,jdbcType=VARCHAR},
+      site = #{site,jdbcType=VARCHAR},
+      image = #{image,jdbcType=VARCHAR},
+      param = #{param,jdbcType=INTEGER},
+      sitename = #{sitename,jdbcType=VARCHAR},
+      tvtype = #{tvtype,jdbcType=VARCHAR},
+      siteurl = #{siteurl,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      id = #{id,jdbcType=BIGINT},
+      movel_status = #{movel_status,jdbcType=VARCHAR},
+      seach_name = #{seach_name,jdbcType=VARCHAR},
+      seach_rname = #{seach_rname,jdbcType=VARCHAR},
+      seach_aname = #{seach_aname,jdbcType=VARCHAR}
+    where uuid = #{uuid,jdbcType=CHAR}
+  </update>
+
+  <select id="selectRotation"  resultType="com.reptile.ad.vo.response.MovieGetClassResponseDTO">
+    SELECT
+      uuid as uuid, name as name,director as director,mainstar as mainstar,image as image,tvtype as tvtype,type as type,area as area,year as year,introduction as introduction,siteurl as siteurl
+    from
+      movel_tvdata
+    ORDER BY RAND() LIMIT 3
+
+  </select>
+  <select id="selectplayurl"  parameterType="java.lang.String" resultType="java.util.Map">
+    SELECT
+      playurl as playurl
+    from
+      movel_tvnums
+    WHERE
+      tvuuid_id = #{id}
+    order by num asc limit 1
+  </select>
+  <select id="selectTopType"  parameterType="java.util.Map" resultType="com.reptile.ad.vo.response.MovieTopTypeResponseDTO">
+    SELECT
+      playurl as playurl
+    from
+      movel_tvnums
+    WHERE
+      tvuuid_id = #{id}
+    order by num asc limit 1
+  </select>
+  <select id="selectDataAll"  resultType="com.reptile.ad.vo.response.MovieShowResponseDTO">
+    SELECT
+      uuid, `name`, `alias`, mainstar, director, `type`, area, `year`, site, image, param,
+      sitename, tvtype, siteurl, createtime, updatetime, id, movel_status,  introduction, plot
+    from
+      movel_tvdata
+    where seach_name like '最新热门m147-%'
+  </select>
+  <select id="selectDataByTvType"  resultType="com.reptile.ad.vo.response.MovieShowResponseDTO" parameterType="java.lang.String">
+    SELECT
+      uuid, `name`, `alias`, mainstar, director, `type`, area, `year`, site, image, param,
+      sitename, tvtype, siteurl, createtime, updatetime, id, movel_status,  introduction, plot
+    from
+      movel_tvdata
+    where seach_aname like concat(#{type},'%')
+  </select>
+  <select id="topTypeName"  resultType="java.util.Map" >
+    SELECT count(uuid) as total ,tvtype as  tvtype   from movel_tvdata  where sitename = 'https://img.ylzy1.com/' GROUP BY tvtype
+  </select>
+  <select id="getMovieHotSearch"  resultType="java.util.Map" >
+    SELECT id as id, name as name from movel_tvdata where sitename = 'https://img.ylzy1.com/' order by param limit 10
+  </select>
+  <select id="selectDownBox"  resultType="java.util.Map" parameterType="java.lang.String">
+    SELECT distinct type from movel_tvdata where tvtype = #{tvtype} and sitename = 'https://img.ylzy1.com/'
+  </select>
+  <select id="selectMovelName"  resultType="java.lang.String" parameterType="java.lang.String">
+    SELECT uuid from movel_tvdata where name = #{name} and sitename = 'https://img.ylzy1.com/'  limit 1
+  </select>
+  <select id="selectMovelNums"  resultType="java.util.Map" parameterType="java.lang.String">
+    SELECT uuid, name FROM movel_tvdata WHERE name = ( SELECT name FROM movel_tvdata WHERE uuid = #{id}) GROUP BY sitename
+  </select>
+  <select id="selectRotationBox"  resultType="java.util.Map" >
+    SELECT uuid, name, site FROM movel_tvdata WHERE seach_rname like '轮播m147-%' and sitename = 'https://img.ylzy1.com/'
+  </select>
+  <select id="adminHotListBox"  resultType="java.util.Map" >
+    SELECT uuid, name FROM movel_tvdata WHERE seach_name like '最新热门m147-%' and sitename = 'https://img.ylzy1.com/'
+  </select>
+  <select id="adminAllListBox"  resultType="java.util.Map" parameterType="java.lang.String">
+    SELECT uuid, name FROM movel_tvdata WHERE seach_aname like concat('热门',#{type},'m147-%') and sitename = 'https://img.ylzy1.com/'
+  </select>
+  <update id="updateRotation" parameterType="java.util.Map">
+    update movel_tvdata
+    set
+      seach_rname = #{name},
+      site = #{url}
+    where uuid = #{id} and sitename = 'https://img.ylzy1.com/'
+  </update>
+  <update id="updateHotStatus" parameterType="java.lang.String">
+    update movel_tvdata
+    set
+      seach_name = #{name}
+    where uuid = #{id} and sitename = 'https://img.ylzy1.com/'
+  </update>
+  <update id="updateStatus" parameterType="java.util.Map">
+    update movel_tvdata
+    set
+      seach_aname = #{name}
+    where uuid = #{id} and sitename = 'https://img.ylzy1.com/' and tvtype = #{tvtype}
+  </update>
+  <update id="updateHotBox" parameterType="java.lang.String">
+    update movel_tvdata
+    set
+      seach_name = ''
+    where uuid = #{id} and sitename = 'https://img.ylzy1.com/'
+  </update>
+  <update id="updateRotationHotBox" parameterType="java.lang.String">
+    update movel_tvdata
+    set
+      seach_rname = ''
+    where uuid = #{id} and sitename = 'https://img.ylzy1.com/'
+  </update>
+  <update id="updateAname" parameterType="java.lang.String">
+    update movel_tvdata
+    set
+      seach_aname = ''
+    where uuid = #{id} and sitename = 'https://img.ylzy1.com/'
+  </update>
+  <select id="selectTopRotation"  resultType="com.reptile.ad.vo.response.MovieGetClassResponseDTO">
+    SELECT
+      id, uuid, `name`, mainstar, director, `type`, area, `year`, site, image, param,
+      sitename, tvtype, siteurl, introduction, plot
+    from
+      movel_tvdata
+    where seach_rname like '轮播m147-%' and sitename = 'https://img.ylzy1.com/'
+  </select>
+</mapper>

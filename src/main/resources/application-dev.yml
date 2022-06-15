@@ -1,0 +1,72 @@
+server:
+  port: 8001
+  servlet:
+    context-path: /ad
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 500MB
+      max-request-size: 500MB
+  application:
+    name: reptile
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://172.20.131.114:3306/movel?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=GMT%2b8
+    username: root
+    password: maofather147
+    hikari:
+      maximum-pool-size: 30
+      minimum-idle: 10
+    tomcat:
+      max-active: 4
+      min-idle: 2
+      initial-size: 2
+
+oss:
+  endpoint: oss-cn-huhehaote.aliyuncs.com
+  accessKeyId: LTAI5tSdBUen4xJLfBPFLY4B
+  accessKeySecret: YmnueBtOMhMK50et05uEstnCyrwT5G
+  bucketName: maofather-147
+
+
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8008/eureka/
+      instance:
+        lease-renewal-interval-in-seconds: 5 # 每隔5秒发送一次心跳
+        lease-expiration-duration-in-seconds: 10 # 10秒不发送就过期
+        prefer-ip-address: true
+        ip-address: 127.0.0.1
+        instance-id: ${spring.application.name}:${server.port}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+logging:
+  file:
+    max-size: 50MB # 日志文件的最大大小。默认为 20MB
+    max-history: 1 # 日志文件要保留的归档的最大天数。默认为 7 天
+  path: logs
+  level:
+    #root: info
+    com.reptile.ad.mapper.*: debug
+ribbon:
+  ReadTimeout: 12000
+  ConnectTimeout: 9000
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 6000

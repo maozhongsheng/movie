@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.reptile.ad.mapper.MovelTvnumsMapper">
+  <resultMap id="BaseResultMap" type="com.reptile.ad.vo.MovelTvnums">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="uuid" jdbcType="CHAR" property="uuid" />
+    <result column="tvname" jdbcType="VARCHAR" property="tvname" />
+    <result column="num" jdbcType="VARCHAR" property="num" />
+    <result column="playurl" jdbcType="VARCHAR" property="playurl" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="tvuuid_id" jdbcType="CHAR" property="tvuuid_id" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, uuid, tvname, num, playurl, createtime, updatetime, tvuuid_id
+  </sql>
+  <select id="selectByExample" parameterType="com.reptile.ad.vo.MovelTvnumsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from movel_tvnums
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from movel_tvnums
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from movel_tvnums
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.reptile.ad.vo.MovelTvnumsExample">
+    delete from movel_tvnums
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.reptile.ad.vo.MovelTvnums" useGeneratedKeys="true">
+    insert into movel_tvnums (uuid, tvname, num, 
+      playurl, createtime, updatetime, 
+      tvuuid_id)
+    values (#{uuid,jdbcType=CHAR}, #{tvname,jdbcType=VARCHAR}, #{num,jdbcType=VARCHAR}, 
+      #{playurl,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, 
+      #{tvuuid_id,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.reptile.ad.vo.MovelTvnums" useGeneratedKeys="true">
+    insert into movel_tvnums
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="tvname != null">
+        tvname,
+      </if>
+      <if test="num != null">
+        num,
+      </if>
+      <if test="playurl != null">
+        playurl,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+      <if test="updatetime != null">
+        updatetime,
+      </if>
+      <if test="tvuuid_id != null">
+        tvuuid_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=CHAR},
+      </if>
+      <if test="tvname != null">
+        #{tvname,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null">
+        #{num,jdbcType=VARCHAR},
+      </if>
+      <if test="playurl != null">
+        #{playurl,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tvuuid_id != null">
+        #{tvuuid_id,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.reptile.ad.vo.MovelTvnumsExample" resultType="java.lang.Long">
+    select count(*) from movel_tvnums
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update movel_tvnums
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.uuid != null">
+        uuid = #{record.uuid,jdbcType=CHAR},
+      </if>
+      <if test="record.tvname != null">
+        tvname = #{record.tvname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.num != null">
+        num = #{record.num,jdbcType=VARCHAR},
+      </if>
+      <if test="record.playurl != null">
+        playurl = #{record.playurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null">
+        createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatetime != null">
+        updatetime = #{record.updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.tvuuid_id != null">
+        tvuuid_id = #{record.tvuuid_id,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update movel_tvnums
+    set id = #{record.id,jdbcType=BIGINT},
+      uuid = #{record.uuid,jdbcType=CHAR},
+      tvname = #{record.tvname,jdbcType=VARCHAR},
+      num = #{record.num,jdbcType=VARCHAR},
+      playurl = #{record.playurl,jdbcType=VARCHAR},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      updatetime = #{record.updatetime,jdbcType=TIMESTAMP},
+      tvuuid_id = #{record.tvuuid_id,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.reptile.ad.vo.MovelTvnums">
+    update movel_tvnums
+    <set>
+      <if test="uuid != null">
+        uuid = #{uuid,jdbcType=CHAR},
+      </if>
+      <if test="tvname != null">
+        tvname = #{tvname,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null">
+        num = #{num,jdbcType=VARCHAR},
+      </if>
+      <if test="playurl != null">
+        playurl = #{playurl,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tvuuid_id != null">
+        tvuuid_id = #{tvuuid_id,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.reptile.ad.vo.MovelTvnums">
+    update movel_tvnums
+    set uuid = #{uuid,jdbcType=CHAR},
+      tvname = #{tvname,jdbcType=VARCHAR},
+      num = #{num,jdbcType=VARCHAR},
+      playurl = #{playurl,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      tvuuid_id = #{tvuuid_id,jdbcType=CHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectNum" parameterType="java.lang.String" resultType="java.util.Map">
+    SELECT
+      num as num,playurl as playurl
+    from
+      movel_tvnums
+    WHERE
+      tvuuid_id = #{id}
+    order by num asc
+
+  </select>
+  <select id="selectTotal" parameterType="java.lang.String" resultType="java.lang.Integer">
+    SELECT
+      count(1) as total
+    from
+      movel_tvnums
+    WHERE
+      tvuuid_id = #{id}
+  </select>
+  <select id="getMovieUrl" parameterType="java.lang.String" resultType="java.util.Map">
+    SELECT
+      tvname as tvname, num as num, playurl as playurl
+    from
+      movel_tvnums
+    WHERE
+      uuid = #{id}
+  </select>
+  <select id="getMovieNums" parameterType="java.lang.String" resultType="java.util.Map">
+    SELECT
+      uuid as uuid, tvname as tvname, num as num, playurl as playurl
+    from
+      movel_tvnums
+    WHERE
+      tvuuid_id = #{id}
+    order by num ASC
+  </select>
+</mapper>
