@@ -78,4 +78,11 @@ public interface MovelTvdataMapper {
     Integer updateAname(String id);
 
     List<MovieGetClassResponseDTO> selectTopRotation();
+
+
+    Integer deleteSensitiveMovie(@Param("uuid")List<String> result);
+
+    List<String> getSensitiveMovie();
+
+    Integer deleteSensitiveMovieTvNum(@Param("tvuuid_id")List<String> result);
 }

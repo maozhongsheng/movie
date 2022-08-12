@@ -1,5 +1,6 @@
 package com.reptile.ad.controller;
 
+import com.reptile.ad.service.MovieService;
 import com.reptile.ad.service.XiangKanService;
 import com.reptile.ad.service.YuleService;
 import io.swagger.annotations.ApiOperation;
@@ -39,6 +40,9 @@ public class ReptileController {
     @Autowired
     private XiangKanService xiangKanService;
 
+    @Autowired
+    public MovieService movieService;
+
     /**
      * 定时获取平台数据
      * 时间为： 每天的 早上0：06分
@@ -47,6 +51,8 @@ public class ReptileController {
     public void getYuleDataDay() throws IOException, ParseException {
         //每天持续更新影片片源
         yuleService.getDadatuDataDay();
+        //删除敏感词影片
+        movieService.deleteSensitiveMovie();
     }
 
     @ApiOperation(value = "鱼乐爬虫")

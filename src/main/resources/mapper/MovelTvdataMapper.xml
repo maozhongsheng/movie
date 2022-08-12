@@ -672,4 +672,19 @@
       movel_tvdata
     where seach_rname like '轮播m147-%' and sitename = 'https://img.ylzy1.com/'
   </select>
+  <select id="getSensitiveMovie"  resultType="java.lang.String">
+    select uuid from movel_tvdata where name like '%AV%'
+  </select>
+  <delete id="deleteSensitiveMovieTvNum"  parameterType="java.util.List">
+    delete from movel_tvnums where
+    <foreach collection="tvuuid_id" open="tvuuid_id IN (" close=")" item="item" separator=",">
+    #{item}
+  </foreach>
+  </delete>
+  <delete id="deleteSensitiveMovie"  parameterType="java.util.List">
+    delete from movel_tvdata where
+    <foreach collection="uuid" open="uuid IN (" close=")" item="item" separator=",">
+      #{item}
+    </foreach>
+  </delete>
 </mapper>

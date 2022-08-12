@@ -201,6 +201,24 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public void deleteSensitiveMovie() {
+        //获取不合规影视集合
+        List<String> result = movelTvdataMapper.getSensitiveMovie();
+        if(0 == result.size()){
+            log.info("无不合规影视");
+            return;
+        }
+        log.info("共有"+result.size()+"部影视不合规");
+        //删除子列表数据
+        Integer res = movelTvdataMapper.deleteSensitiveMovieTvNum(result);
+        //删除主列表数据
+        Integer res2 = movelTvdataMapper.deleteSensitiveMovie(result);
+        if(0 < res && 0 < res2){
+            log.info("删除不合规视频成功");
+        }
+    }
+
+    @Override
     public List<Map> getMovieHotSearch() {
         List<Map> result = movelTvdataMapper.getMovieHotSearch();
         return result;

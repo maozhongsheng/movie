@@ -38,4 +38,6 @@ public interface MovieService {
     List<Map> getDownBox(MovieGetClassRequest movieGetClassRequest);
 
     List<Map> getSourceNums(MovieTopTypeRequest movieTopTypeRequest);
+
+    void deleteSensitiveMovie();
 }
